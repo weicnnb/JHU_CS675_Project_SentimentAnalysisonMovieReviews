@@ -113,6 +113,14 @@ y_pred_tfidf_svm_scifi=tfidf_svm_best.predict(X_tfidf_scifi)
 toc()
 ```
 ## For models with Ngram 
+### Ngram Transformation
+from sklearn.feature_extraction.text import CountVectorizer
+ngram_vectorizer = CountVectorizer(min_df=5, analyzer='char_wb', ngram_range=(5, 5), max_features=1000, lowercase=True)
+ngram_fit = ngram_vectorizer.fit(X_train)
+X_train_ngram = ngram_fit.transform(X_train)
+X_valid_ngram = ngram_fit.transform(X_valid)
+X_tv_ngram = ngram_fit.transform(X_tv)
+X_test_ngram = ngram_fit.transform(X_test)
 
 ## For models with word2vec
 ### word2vec Transformation
