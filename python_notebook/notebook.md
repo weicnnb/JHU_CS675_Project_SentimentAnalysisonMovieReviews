@@ -13,3 +13,5 @@ Each ipynb notebook can be runed independently from the beginning, as they inclu
 > word2vec1
 
 > word2vec2
+
+We also uploaded a python notebook using which we webclawed extra testing set.
