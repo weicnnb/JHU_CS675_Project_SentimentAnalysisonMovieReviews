@@ -20,7 +20,7 @@ Each ipynb notebook can be runed independently from the beginning, as they inclu
 
 > tfidf.ipynb: all models with tfidf vectorization
 
-> ngram: all models with baseline (bag of word) and ngram vectorization
+> BagOfWord_Ngram: all models with baseline (bag of word) and ngram vectorization
 
 > word2vec1
 
