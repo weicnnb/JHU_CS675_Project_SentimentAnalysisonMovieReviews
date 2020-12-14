@@ -1,14 +1,35 @@
 # JHU_CS675_Project_SentimentAnalysisonMovieReviews
-This document will introduce the main codes that we have used in each part. For details, please see the ipynb notebooks in the Python notebook folder
+This document will introduce the main codes that we have used in each part. For details, please see the ipynb notebooks in the python_notebook folder
 ## What has been uploaded in the Github repo
 There are two folders
->image
+### image
+> image name type 1: vectorization_model_item
 
->Python notebook
+>> e.g. tfidf_lr_tests: performance of logistic model with tdidf vectorization on nine testing sets
+
+> image name type 2: vectorization_item
+>> e.g. tfidf_top15: the ranking of top 15 keywords in terms of TFIDF scores
+
+### Python notebook
+There are four ipynb notebook in this section:
+
+Each ipynb notebook can be runed independently from the beginning, as they include the complete sections from loading data, pre-processing, split dataset, vectorization, modeling, performance measure...
+
+
+
+> tfidf.ipynb: all models with tfidf vectorization
+
+> ngram: all models with baseline (bag of word) and ngram vectorization
+
+> word2vec1
+
+> word2vec2
+
+We also uploaded a python notebook using which we webclawed extra testing set.
 
 ## Pre-Processing
 
-Different vectorization requires different pre-processing, so please see each ipynb notebook in the Python notebook folder for this part.
+Different vectorization requires different pre-processing, so please see each ipynb notebook in the python_notebook folder for this part.
 
 ## For models with TFIDF Vecotrization
 
