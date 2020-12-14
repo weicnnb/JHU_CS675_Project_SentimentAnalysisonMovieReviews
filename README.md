@@ -12,11 +12,11 @@ e.g.: tfidf_lr_tests: performance of logistic model with tdidf vectorization on 
 e.g.: tfidf_top15: the ranking of top 15 keywords in terms of TFIDF scores
 
 ### Python notebook
-There are four ipynb notebook in this section:
+There are six ipynb notebook in this section:
 
 Each ipynb notebook can be runed independently from the beginning, as they include the complete sections from loading data, pre-processing, split dataset, vectorization, modeling, performance measure...
 
-
+4 notebooks on modelling with different vectorization
 
 > tfidf.ipynb: all models with tfidf vectorization
 
@@ -26,14 +26,16 @@ Each ipynb notebook can be runed independently from the beginning, as they inclu
 
 > word2vec2
 
-We also uploaded a python notebook using which we webclawed extra testing set.
+> Fifth: We also uploaded a python notebook using which we webclawed extra testing set.
+
+> Sixth: Final Project Writeup
+
 
 ## Pre-Processing
 
 Different vectorization requires different pre-processing, so please see each ipynb notebook in the python_notebook folder for this part.
 
-## For models with TFIDF Vecotrization
-
+## For models with TFIDF
 ### TFIDF Transformation
 ```
 tfidf_vec = TfidfVectorizer(sublinear_tf = True, min_df=5, max_features = 1500)
@@ -54,66 +56,10 @@ X_valid_tfidf = svd_tfidf_fit.transform(X_valid_tfidf)
 y_valid_int=y_valid.astype('int')
 y_train_int=y_train.astype('int')
 ```
-### Logistic Regression and Gridsearch
-```
-lr = LogisticRegression(random_state = 2020)
-lr_para_grid = {
-    'penalty':['l1','l2'],
-    'C':[0.1, 1, 10, 15, 20],
-    'solver':['newton-cg','lbfs','liblinear','sag','saga']
-    }
 
-tfidf_lr_gs = GridSearchCV(lr, param_grid = [lr_para_grid], cv = pds, scoring = 'roc_auc', n_jobs = -1, verbose = 1)
-tic()
-tfidf_lr_gs.fit(X_tv_tfidf, y_tv_int)
-toc()
-tfidf_lr_best = tfidf_lr_gs.best_estimator_
-print(tfidf_lr_gs.best_params_)
-tic()
-y_pred_tfidf_lr_test = tfidf_lr_best.predict(X_test_tfidf)
-y_pred_tfidf_lr_runtime_1_100=tfidf_lr_best.predict(X_tfidf_runtime_1_100)
-y_pred_tfidf_lr_runtime_101_600=tfidf_lr_best.predict(X_tfidf_runtime_101_600)
-y_pred_tfidf_lr_action=tfidf_lr_best.predict(X_tfidf_action)
-y_pred_tfidf_lr_adventure=tfidf_lr_best.predict(X_tfidf_adventure)
-y_pred_tfidf_lr_animation=tfidf_lr_best.predict(X_tfidf_animation)
-y_pred_tfidf_lr_biography=tfidf_lr_best.predict(X_tfidf_biography)
-y_pred_tfidf_lr_comedy=tfidf_lr_best.predict(X_tfidf_comedy)
-y_pred_tfidf_lr_horror=tfidf_lr_best.predict(X_tfidf_horror)
-y_pred_tfidf_lr_romance=tfidf_lr_best.predict(X_tfidf_romance)
-y_pred_tfidf_lr_scifi=tfidf_lr_best.predict(X_tfidf_scifi)
-toc()
-```
-### Logistic Regression and Gridsearch
-```
-svm = LinearSVC(random_state=2020)
-svm_para_grid = {
-    'penalty':['l1','l2'],
-    'loss':['hinge','squared_hinge'],
-    'C': [0.2, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6, 1]
-}
-tfidf_svm_gs = GridSearchCV(svmm, param_grid = [svm_para_grid], verbose = 1, cv = pds, n_jobs = -1, scoring = 'roc_auc')
-tic()
-tfidf_svm_gs.fit(X_tv_tfidf, y_tv_int)
-toc()
-tfidf_svm_best = tfidf_svm_gs.best_estimator_
-print(tfidf_svm_gs.best_params_)
-tfidf_svm_gs.best_score_
-tic()
-y_pred_tfidf_svm_test = tfidf_svm_best.predict(X_test_tfidf)
-y_pred_tfidf_svm_runtime_1_100=tfidf_svm_best.predict(X_tfidf_runtime_1_100)
-y_pred_tfidf_svm_runtime_101_600=tfidf_svm_best.predict(X_tfidf_runtime_101_600)
-y_pred_tfidf_svm_action=tfidf_svm_best.predict(X_tfidf_action)
-y_pred_tfidf_svm_adventure=tfidf_svm_best.predict(X_tfidf_adventure)
-y_pred_tfidf_svm_animation=tfidf_svm_best.predict(X_tfidf_animation)
-y_pred_tfidf_svm_biography=tfidf_svm_best.predict(X_tfidf_biography)
-y_pred_tfidf_svm_comedy=tfidf_svm_best.predict(X_tfidf_comedy)
-y_pred_tfidf_svm_horror=tfidf_svm_best.predict(X_tfidf_horror)
-y_pred_tfidf_svm_romance=tfidf_svm_best.predict(X_tfidf_romance)
-y_pred_tfidf_svm_scifi=tfidf_svm_best.predict(X_tfidf_scifi)
-toc()
-```
-## For models with Ngram 
+## For models with Ngram
 ### Ngram Transformation
+```
 from sklearn.feature_extraction.text import CountVectorizer
 ngram_vectorizer = CountVectorizer(min_df=5, analyzer='char_wb', ngram_range=(5, 5), max_features=1000, lowercase=True)
 ngram_fit = ngram_vectorizer.fit(X_train)
@@ -121,6 +67,7 @@ X_train_ngram = ngram_fit.transform(X_train)
 X_valid_ngram = ngram_fit.transform(X_valid)
 X_tv_ngram = ngram_fit.transform(X_tv)
 X_test_ngram = ngram_fit.transform(X_test)
+```
 
 ## For models with word2vec
 ### word2vec Transformation
@@ -155,41 +102,67 @@ def getAvgFeatureVec(clean_reviews, model, num_features):
     
     return reviewFeatureVecs
 ```
-### Logistic Regression and Gridsearch
 
-### SVM and Gridsearch
+## Logistic Regression and Gridsearch
 ```
-# LinearSVC
-tic()
-sv = LinearSVC(random_state=2020)
+lr = LogisticRegression(random_state = 2020)
+lr_para_grid = {
+    'penalty':['l1','l2'],
+    'C':[0.1, 1, 10, 15, 20],
+    'solver':['newton-cg','lbfs','liblinear','sag','saga']
+    }
 
-param_grid1 = {
-    'loss':['hinge', 'squared_hinge'],
-    'class_weight':[{1:2},'balanced'],
-    'C': [0.5,1,10,20],
-    'penalty':['l2']
+lr_gs = GridSearchCV(lr, param_grid = [lr_para_grid], cv = pds, scoring = 'roc_auc', n_jobs = -1, verbose = 1)
+tic()
+lr_gs.fit(X_tv, y_tv_int)
+toc()
+lr_best = lr_gs.best_estimator_
+print(lr_gs.best_params_)
+tic()
+y_pred_lr_test = lr_best.predict(X_test)
+y_pred_lr_runtime_1_100=lr_best.predict(X_runtime_1_100)
+y_pred_lr_runtime_101_600=lr_best.predict(X_runtime_101_600)
+y_pred_lr_action=lr_best.predict(X_action)
+y_pred_lr_adventure=lr_best.predict(X_adventure)
+y_pred_lr_animation=lr_best.predict(X_animation)
+y_pred_lr_biography=lr_best.predict(X_biography)
+y_pred_lr_comedy=lr_best.predict(X_comedy)
+y_pred_lr_horror=lr_best.predict(X_horror)
+y_pred_lr_romance=lr_best.predict(X_romance)
+y_pred_lr_scifi=lr_best.predict(X_scifi)
+toc()
+```
+
+## SVM Model and Gridsearch
+```
+svm = LinearSVC(random_state=2020)
+svm_para_grid = {
+    'penalty':['l1','l2'],
+    'loss':['hinge','squared_hinge'],
+    'C': [0.2, 0.25, 0.3, 0.35, 0.4, 0.5, 0.6, 1]
 }
-
-gs_sv = GridSearchCV(sv, param_grid = [param_grid1], verbose = 1, cv = pds, n_jobs = 1, scoring = 'roc_auc' )
-gs_sv.fit(tvDataAvg, y_tv_int)
-gs_sv_best = gs_sv.best_estimator_
-print(gs_sv.best_params_)
-print(gs_sv.best_score_)
-toc()
+svm_gs = GridSearchCV(svm, param_grid = [svm_para_grid], verbose = 1, cv = pds, n_jobs = -1, scoring = 'roc_auc')
 tic()
-y_svm1 = gs_sv.predict(testDataAvg)
-y_svm2 = gs_sv.predict(testDataAvg_action)
-y_svm3 = gs_sv.predict(testDataAvg_adventure)
-y_svm4 = gs_sv.predict(testDataAvg_animation)
-y_svm5 = gs_sv.predict(testDataAvg_biography)
-y_svm6 = gs_sv.predict(testDataAvg_comedy)
-y_svm7 = gs_sv.predict(testDataAvg_horror)
-y_svm8 = gs_sv.predict(testDataAvg_romance)
-y_svm9 = gs_sv.predict(testDataAvg_scifi)
-y_svm10 = gs_sv.predict(testDataAvg_runtime_1_100)
-y_svm11 = gs_sv.predict(testDataAvg_runtime_101_600)
+svm_gs.fit(X_tv, y_tv_int)
+toc()
+svm_best = svm_gs.best_estimator_
+print(svm_gs.best_params_)
+svm_gs.best_score_
+tic()
+y_pred_svm_test = svm_best.predict(X_test)
+y_pred_svm_runtime_1_100=svm_best.predict(X_runtime_1_100)
+y_pred_svm_runtime_101_600=svm_best.predict(X_runtime_101_600)
+y_pred_svm_action=svm_best.predict(X_action)
+y_pred_svm_adventure=svm_best.predict(X_adventure)
+y_pred_svm_animation=svm_best.predict(X_animation)
+y_pred_svm_biography=svm_best.predict(X_biography)
+y_pred_svm_comedy=svm_best.predict(X_comedy)
+y_pred_svm_horror=svm_best.predict(X_horror)
+y_pred_svm_romance=svm_best.predict(X_romance)
+y_pred_svm_scifi=svm_best.predict(X_scifi)
 toc()
 ```
+
 ## For Model Evaluation and Fairness Comparison based on Different Metrics
 ```
 def evaluate_pred(ytrue, ypred):
