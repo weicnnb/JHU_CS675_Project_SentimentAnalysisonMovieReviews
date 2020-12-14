@@ -1,10 +1,14 @@
 # JHU_CS675_Project_SentimentAnalysisonMovieReviews
 This document will introduce the main codes that we have used in each part. For details, please see the ipynb notebooks in the Python notebook folder
-## Layout of this Github repo
+## What has been uploaded in the Github repo
 There are two folders
 >image
 
 >Python notebook
+
+## Pre-Processing
+
+Different vectorization requires different pre-processing, so please see each ipynb notebook in the Python notebook folder for this part.
 
 ## For models with TFIDF Vecotrization
 
