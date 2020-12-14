@@ -1,4 +1,4 @@
-# JHU_CS675_Project_SentimentAnalysisonMovieReviews
+# JHU_CS675_Project: Sentiment Analysis on Movie Reviews
 This document will introduce the main codes that we have used in each part. For details, please see the ipynb notebooks in the python_notebook folder
 ## What has been uploaded in the Github repo
 There are two folders
