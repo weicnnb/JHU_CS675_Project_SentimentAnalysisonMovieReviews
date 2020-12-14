@@ -1,7 +1,12 @@
 # JHU_CS675_Project: Sentiment Analysis on Movie Reviews
 This document will introduce the main codes that we have used in each part. For details, please see the ipynb notebooks in the python_notebook folder
 ## What has been uploaded in the Github repo
-There are two folders
+There are three folders
+### data
+
+the extra testing sets we web clawed from IMDB
+
+
 ### image
 > image name type 1: vectorization_model_item
 
