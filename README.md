@@ -23,3 +23,9 @@ X_valid_tfidf = svd_tfidf_fit.transform(X_valid_tfidf)
 y_valid_int=y_valid.astype('int')
 y_train_int=y_train.astype('int')
 ```
+
+
+
+## For models with Ngram 
+
+## For models with word2vec
