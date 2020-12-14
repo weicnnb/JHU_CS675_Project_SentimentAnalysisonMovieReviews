@@ -26,9 +26,9 @@ Each ipynb notebook can be runed independently from the beginning, as they inclu
 
 > word2vec2
 
-> Fifth: We also uploaded a python notebook using which we webclawed extra testing set.
+Fifth: We also uploaded a python notebook using which we webclawed extra testing set.
 
-> Sixth: Final Project Writeup
+Sixth: Final Project Writeup
 
 
 ## Pre-Processing
