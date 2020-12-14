@@ -30,9 +30,16 @@ Fifth: We also uploaded a python notebook using which we webclawed extra testing
 
 Sixth: Final Project Writeup whcih follows the instructor's templete and only includes main results and analysis
 
-## Problem Introduction
+## Problem Introduction and Data
+
+for details, please see the writeup notebook in the python_notebook folder
 
 There are thousands of movies coming out each year. Movie reviews reflect the quality of movies, and influence many people in their choice of movie-watching. In this project, we want to perform a thorough sentiment analysis to identify the polarity of textual reviews. This research work can hopefully help viewers decide whether to watch a newly released movie or not. It may also be of interest to the movie industry to tell what kind of movies the market will like and help recommend movies to users based on previous reviews. Each input is a paragraph of movie review consisting of several English sentences. We will train and develop different SVM, neural network and LSTM models to predict whether the movie review is positive or negative. Then, with the trained models, we will investigate what are key features in a movie review that reveals most of its attitude (e.g., frequency of particular key words). Furthermore, we will conduct a comparison analysis in following two aspects: First, we will compare different texture feature engineering techniques such as word2vec, N-Gram, TFIDF. Second, we will compare those best performing models in each classes based not only on their test accuracy, time complexity, but also on their fairness and interpretability (details explained in the deliverables section of our writeup notebook).
+
+We used the Large Movie Review Dataset, which is a collection of English textual movie reviews extracted before year 2011 from IMDB website, each with a label being either positive or negative. There are around 25,000 examples in the original training set, and around 25,000 examples in the original testing set, so we used a training (70%)-validation (15%)- testing (15%) split.
+
+Furthermore, because the IMDB dataset does not include example information such as movie type, runtime, when evaluating the fairness of the model, we tried out web crawler algorithms on IMDB website to gather an extra testing set for movie reviews after year 2013, 500 reviews for each of 8 genres (action, adventure, animation, biography, comedy, horror, romance, and sci-fi) and runtime ( less than 100 minutes; larger than 100 minutes).
+
 
 ## Pre-Processing
 
