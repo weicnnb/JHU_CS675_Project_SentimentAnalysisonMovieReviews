@@ -84,3 +84,72 @@ toc()
 ## For models with Ngram 
 
 ## For models with word2vec
+### word2vec Transformation
+In general, there are two types of architecture options: skip-gram (default) and CBOW (continuous bag of words). Most of time, skip-gram is little bit slower but has more accuracy than CBOW. CBOW is the method to predict one word by whole text; therefore, small set of data is more favorable. On the other hand, skip-gram is totally opposite to CBOW. With the target word, skip-gram is the method to predict the words around the target words. The more data we have, the better it performs. As the architecture, there are two training algorithms for Word2Vec: Hierarchical softmax (default) and negative sampling. We will be using the default.
+```
+model = word2vec.Word2Vec(sentence, workers = num_processor, 
+                         size = num_features, min_count = min_count,
+                         window = context, sample = downsampling)
+```
+### Vector Averaging
+The purpose of this function is to combine all the word2vec vector values of each word in each review if each review is given as input and divide by the total number of words. Each word can be represented as number of feature dimension space vector
+'''
+
+def makeFeatureVec(review, model, num_features):
+    featureVec = np.zeros((num_features,), dtype = "float32")
+    word_index = set(model.wv.index2word)
+    nword = 0
+    for word in review:
+        if word in word_index:
+            nword += 1
+            featureVec = np.add(featureVec, model[word])
+    featureVec = np.divide(featureVec, nword)        
+    return featureVec
+ '''
+While iterating over reviews, add the vector sums of each review from the function "makeFeatureVec" to the predefined vector whose size is the number of total reviews and the number of features in word2vec. The working principle is basically same with "makeFeatureVec" but this is a review basis and makeFeatureVec is word basis.
+'''
+
+def getAvgFeatureVec(clean_reviews, model, num_features):
+    review_th = 0
+    reviewFeatureVecs = np.zeros((len(clean_reviews), num_features), dtype = "float32")
+    for review in clean_reviews:
+        reviewFeatureVecs[int(review_th)] = makeFeatureVec(review, model, num_features) 
+        review_th += 1
+    
+    return reviewFeatureVecs
+'''
+### Logistic Regression and Gridsearch
+
+### SVM and Gridsearch
+```
+# LinearSVC
+tic()
+sv = LinearSVC(random_state=2020)
+
+param_grid1 = {
+    'loss':['hinge', 'squared_hinge'],
+    'class_weight':[{1:2},'balanced'],
+    'C': [0.5,1,10,20],
+    'penalty':['l2']
+}
+
+gs_sv = GridSearchCV(sv, param_grid = [param_grid1], verbose = 1, cv = pds, n_jobs = 1, scoring = 'roc_auc' )
+gs_sv.fit(tvDataAvg, y_tv_int)
+gs_sv_best = gs_sv.best_estimator_
+print(gs_sv.best_params_)
+print(gs_sv.best_score_)
+toc()
+tic()
+y_svm1 = gs_sv.predict(testDataAvg)
+y_svm2 = gs_sv.predict(testDataAvg_action)
+y_svm3 = gs_sv.predict(testDataAvg_adventure)
+y_svm4 = gs_sv.predict(testDataAvg_animation)
+y_svm5 = gs_sv.predict(testDataAvg_biography)
+y_svm6 = gs_sv.predict(testDataAvg_comedy)
+y_svm7 = gs_sv.predict(testDataAvg_horror)
+y_svm8 = gs_sv.predict(testDataAvg_romance)
+y_svm9 = gs_sv.predict(testDataAvg_scifi)
+y_svm10 = gs_sv.predict(testDataAvg_runtime_1_100)
+y_svm11 = gs_sv.predict(testDataAvg_runtime_101_600)
+toc()
+```
