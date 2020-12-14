@@ -42,6 +42,7 @@ X_valid_tfidf = tfidf_fit.transform(X_valid)
 X_tv_tfidf = tfidf_fit.transform(X_tv)
 ```
 ### PCA
+Based on data exploration, we reduce the dimension to 400.
 ```
 from sklearn.decomposition import TruncatedSVD
 svd = TruncatedSVD(n_components=400, n_iter=30, random_state=2020)
@@ -180,3 +181,28 @@ y_svm10 = gs_sv.predict(testDataAvg_runtime_1_100)
 y_svm11 = gs_sv.predict(testDataAvg_runtime_101_600)
 toc()
 ```
+## For Model Evaluation and Fairness Comparison based on Different Metrics
+```
+def evaluate_pred(ytrue, ypred):
+  TN, FP, FN, TP = confusion_matrix(ytrue, ypred).ravel()
+  Accuracy = round((TP + TN)/(TP + TN + FP + FN),3)
+  Precision = round(TP/(TP + FP),3)
+  Recall = round(TP/(TP + FN),3)
+  Specificity = round(TN/(TN + FP),3)
+  FPR = round(FP/(FP + TN),3)
+  F1 = round(2*(Precision * Recall)/(Precision + Recall),3)
+  Balanced_Accuracy = round((Precision + Specificity)/2,3)
+  print("TP = "+str(TP))
+  print("FP = "+str(FP))
+  print("FN = "+str(FN))
+  print("TN = "+str(TN))
+  print("Accuracy = "+str(Accuracy))
+  print("Precision = "+str(Precision))
+  print("Recall = "+str(Recall))
+  print("Specificity = "+str(Specificity))
+  print("False_Positive_Rate = "+str(FPR))
+  print("F1_Score = "+str(F1))
+  print("Balanced_Accuracy = "+str(Balanced_Accuracy))
+  res=pd.DataFrame([TN, FP, FN, TP, Accuracy, Precision, Recall, Specificity, FPR, F1, Balanced_Accuracy])
+  return(res)
+ ```
