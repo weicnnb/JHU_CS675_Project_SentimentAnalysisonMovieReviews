@@ -54,7 +54,7 @@ toc()
 ```
 ### Logistic Regression and Gridsearch
 ```
-svmm = LinearSVC(random_state=2020)
+svm = LinearSVC(random_state=2020)
 svm_para_grid = {
     'penalty':['l1','l2'],
     'loss':['hinge','squared_hinge'],
@@ -93,8 +93,7 @@ model = word2vec.Word2Vec(sentence, workers = num_processor,
 ```
 ### Vector Averaging
 The purpose of this function is to combine all the word2vec vector values of each word in each review if each review is given as input and divide by the total number of words. Each word can be represented as number of feature dimension space vector
-'''
-
+```
 def makeFeatureVec(review, model, num_features):
     featureVec = np.zeros((num_features,), dtype = "float32")
     word_index = set(model.wv.index2word)
@@ -105,10 +104,9 @@ def makeFeatureVec(review, model, num_features):
             featureVec = np.add(featureVec, model[word])
     featureVec = np.divide(featureVec, nword)        
     return featureVec
- '''
+```
 While iterating over reviews, add the vector sums of each review from the function "makeFeatureVec" to the predefined vector whose size is the number of total reviews and the number of features in word2vec. The working principle is basically same with "makeFeatureVec" but this is a review basis and makeFeatureVec is word basis.
-'''
-
+```
 def getAvgFeatureVec(clean_reviews, model, num_features):
     review_th = 0
     reviewFeatureVecs = np.zeros((len(clean_reviews), num_features), dtype = "float32")
@@ -117,7 +115,7 @@ def getAvgFeatureVec(clean_reviews, model, num_features):
         review_th += 1
     
     return reviewFeatureVecs
-'''
+```
 ### Logistic Regression and Gridsearch
 
 ### SVM and Gridsearch
